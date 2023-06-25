@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
 from lxml import etree
 import requests
-import json
 
 class BaseScrape(ABC):
 

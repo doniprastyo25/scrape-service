@@ -11,15 +11,28 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=scrapedb
+      - POSTGRES_DB=user_scrape_db
     restart: always
     networks:
       - serviceNetwork
+      
+  mongodb:
+    container_name: db_mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=adminmongo
+      - MONGO_INITDB_ROOT_PASSWORD=adminmongo
+      - MONGO_INITDB_DATABASE=mongoscrape
 
 networks:
   serviceNetwork:
 
 volumes:
   postgres_data:
+  mongodb_data:
   cache:
     driver: local
