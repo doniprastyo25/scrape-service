@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    container_name: db_postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=scrapedb
+    restart: always
+    networks:
+      - serviceNetwork
+
+networks:
+  serviceNetwork:
+
+volumes:
+  postgres_data:
+  cache:
+    driver: local
