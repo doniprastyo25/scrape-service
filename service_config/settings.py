@@ -76,11 +76,23 @@ WSGI_APPLICATION = 'service_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'scrapedb',
+        'NAME': 'user_scrape_db',
         'USER': 'admin',
         'PASSWORD': 'admin',
         'HOST': '127.0.0.1',
         'PORT': 5432
+    }
+}
+
+MONGODB_DATABASES = {
+    'default': {
+        'name': 'mongoscrape',
+        'host': '127.0.0.1',
+        'port': 27017,
+        'username': 'adminmongo',
+        'password': 'adminmongo',
+        'authentication_source': 'admin',
+        'connect': False,
     }
 }
 
