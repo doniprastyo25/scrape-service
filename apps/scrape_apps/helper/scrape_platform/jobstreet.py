@@ -1,4 +1,4 @@
-from apps.scrape_apps.helper.base_scrape import BaseScrape
+from apps.scrape_apps.helper.base_scrape.base_scrape import BaseScrape
 import json
 
 class JobStreet(BaseScrape):
