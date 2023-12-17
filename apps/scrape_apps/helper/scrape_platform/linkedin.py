@@ -19,7 +19,10 @@ class Linkedin(BaseScrape):
         self._xpath_posted: str = '//*[@id="main-content"]/section[1]/div/section[2]/div/div[1]/div/h4/div[2]/span[1]'
     
     def exec_script(self):
+        self.result_scrape = list()
         for i in range(1, 6):
             self._title: str = f'//*[@id="main-content"]/section[2]/ul/li[{i}]/div/a/span'
             self._content_url: str = f'#main-content > section.two-pane-serp-page__results-list > ul > li:nth-child({i}) > div > a'
             print(json.dumps(super()._extract_data(self._title, self._content_url), indent=3))
+            result = super()._extract_data(self._title, self._content_url)
+            self.result_scrape.append(result)

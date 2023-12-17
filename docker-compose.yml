@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     environment:
       - DEBUG=True
       - SECRET_KEY=django-insecure-j8dey789ilcebs8x(8lkey55je2r_+0_3p-z97i68j1$h106s=
@@ -25,6 +25,8 @@ services:
       - MONGO_DB_PASSWORD=adminmongo
       - MONGO_DB_AUTHENTICATION_SOURCE=admin
       - MONGO_DB_CONNECT=False
+    stdin_open: true   # Add this line into your service
+    tty: true   # Add this line into your service
     depends_on:
       - db
       - mongodb
@@ -36,9 +38,9 @@ services:
     container_name: db_postgres
     image: postgres
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
@@ -58,6 +60,17 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=adminmongo
       - MONGO_INITDB_ROOT_PASSWORD=adminmongo
       - MONGO_INITDB_DATABASE=mongoscrape
+    restart: always
+    networks:
+      - serviceNetwork
+  
+  redis:
+    container_name: redis_broker
+    image: redis
+    ports:
+      - '6739:6739'
+    networks:
+      - serviceNetwork
 
 networks:
   serviceNetwork:
